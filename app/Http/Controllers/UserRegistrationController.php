@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Auth;
+use Image;
 
 class UserRegistrationController extends Controller
 {
@@ -85,4 +86,24 @@ class UserRegistrationController extends Controller
         $user->save();
         return redirect("/user-profile/$request->user_id")->with('message',"Data Update Success");
     }
+
+    public function changeUserAvatar($id){
+        $user = User::find($id);
+        return view('admin.users.change-user-avatar',['user' => $user]);
+    }
+
+    public function updateUserPhoto(Request $request){
+        $user = User::find($request->user_id);
+        $file = $request->file('avatar');
+        $imageName = $file->getClientOriginalName();
+        $directory = 'admin/assets/avatar/';
+        $imageUrl = $directory.$imageName;
+        //$file->move($directory,$imageUrl);
+        Image::make($file)->resize(300,300)->save($imageUrl);
+        $user->avatar = $imageUrl;
+        $user->save();
+        return redirect("/user-profile/$request->user_id")->with('message',"Image Update Success");
+
+    }
+
 }
