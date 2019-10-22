@@ -10,6 +10,13 @@
                     {{ Session::get('message') }}
                 </div>
                 @endif
+
+                    @if(Session::get('error_msg'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ Session::get('error_msg') }}
+                        </div>
+                    @endif
+
                 <div class="form-group">
                     <div class="col-sm-12">
                         <h4 class="text-center font-weight-bold font-italic mt-3">{{ $user->name }}'s Profile</h4>
@@ -28,7 +35,7 @@
                             <td>
                                 <a href="{{route('change-user-info',['id'=>$user->id])}}" class="btn btn-sm btn-dark">Change Info</a>
                                 <a href="{{route('change-user-avatar',['id'=>$user->id])}}" class="btn btn-sm btn-info">Change Photo</a>
-                                <a href="#" class="btn btn-sm btn-danger">Password Change</a>
+                                <a href="{{route('change-user-password',['id'=>$user->id])}}" class="btn btn-sm btn-danger">Password Change</a>
                             </td>
                         </tr>
 
