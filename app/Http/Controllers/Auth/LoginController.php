@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Foundation\Auth\User;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -19,6 +21,28 @@ class LoginController extends Controller
     */
 
     use AuthenticatesUsers;
+
+    public function showLoginForm()
+    {
+        $users = User::all();
+        if(count($users) > 0){
+            return view('admin.users.login-form');
+        }else {
+            $user = new User();
+            $user->role = 'Admin';
+            $user->name = 'Admin';
+            $user->mobile = '01986233234';
+            $user->email = 'raihanislam.cse@gmail.com';
+            $user->password = Hash::make('mrhsmrhs');
+            $user->save();
+            return view('admin.users.login-form');
+        }
+    }
+
+    public function username()
+    {
+        return 'mobile';
+    }
 
     /**
      * Where to redirect users after login.
