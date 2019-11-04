@@ -70,6 +70,43 @@ Route::post('/user-password-update',[
     'as' => 'user-password-update'
 ])->middleware('auth');
 
+Route::get('/add-header-footer',[
+    'uses'=>'HomePageController@addHeaderFooterForm',
+    'as' => 'add-header-footer'
+]);
+
+Route::post('/header-and-footer-save',[
+    'uses'=>'HomePageController@headerAndFooterSave',
+    'as' => 'header-and-footer-save'
+]);
+
+Route::get('/manage-header-footer/{id}',[
+    'uses'=>'HomePageController@manageHeaderFooter',
+    'as' => 'manage-header-footer'
+]);
+
+Route::post('/header-footer-update',[
+    'uses'=>'HomePageController@headerFooterUpdate',
+    'as' => 'header-footer-update'
+]);
+
+
+Route::get('/add-slide',[
+    'uses'=>'SliderController@addSlide',
+    'as' => 'add-slide'
+]);
+Route::post('/upload-slide',[
+    'uses'=>'SliderController@uploadSlide',
+    'as' => 'upload-slide'
+]);
+
+
+
+
+
+
+
+
 
 
 

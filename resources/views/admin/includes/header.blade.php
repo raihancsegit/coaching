@@ -29,12 +29,22 @@
 <body>
 <!--Header Start-->
 <section>
-    <div class="col-sm-12 text-center header pb-1">
-        <h2 class="font-weight-bold p-1 m-0">Web Site Title</h2>
-        <h5 class="menu-bg p-2 pl-3 pr-3 mb-1">Web Sub Title</h5>
-        <p class="font-weight-bold mb-0">215/4/A/3, East-Rampura, Dhaka-1209</p>
-        <p class="font-weight-bold mb-0">Mobile: 880-1722454519</p>
-    </div>
+    @if(isset($header))
+        <div class="col-sm-12 text-center header pb-1">
+            <h2 class="font-weight-bold p-1 m-0">{{$header->owner_name}}</h2>
+            <h5 class="menu-bg p-2 pl-3 pr-3 mb-1">{{$header->owner_department}}</h5>
+            <p class="font-weight-bold mb-0">{{$header->address}}</p>
+            <p class="font-weight-bold mb-0">Mobile: {{$header->mobile}}</p>
+        </div>
+        @else
+        <div class="col-sm-12 text-center header pb-1">
+            <h2 class="font-weight-bold p-1 m-0">Web Site Title</h2>
+            <h5 class="menu-bg p-2 pl-3 pr-3 mb-1">Web Sub Title</h5>
+            <p class="font-weight-bold mb-0">215/4/A/3, East-Rampura, Dhaka-1209</p>
+            <p class="font-weight-bold mb-0">Mobile: 880-1722454519</p>
+        </div>
+        @endif
+
 </section>
 <!--Header End-->
 
@@ -94,6 +104,26 @@
                         <ul class="dropdown-menu">
                             <li><a href="#" class="dropdown-item">Add Batch</a></li>
                             <li><a href="#" class="dropdown-item">Batch List</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown-submenu">
+                        <a class="dropdown-item dropdown-toggle" href="#">Slider</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{route('add-slide')}}" class="dropdown-item">Add Slide</a></li>
+                            <li><a href="#" class="dropdown-item">Manage Slide</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown-submenu">
+                        <a class="dropdown-item dropdown-toggle" href="#">General</a>
+                        <ul class="dropdown-menu">
+                            @if(!isset($header))
+                            <li><a href="{{route('add-header-footer')}}" class="dropdown-item">Add Header & Footer</a></li>
+                            @endif
+                            @if(isset($header))
+                            <li><a href="{{route('manage-header-footer',['id'=>$header->id])}}" class="dropdown-item">Manage Header Footer</a></li>
+                            @endif
                         </ul>
                     </li>
 
